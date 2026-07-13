@@ -129,7 +129,8 @@ def evaluate(verbose: bool = typer.Option(True)):
     s = res["summary"]
     console.print("\n[bold]Результаты оценки:[/bold]")
     console.print(f"  Точность грундинга (отказ/ответ): [green]{s['grounding_accuracy']:.0%}[/green]")
-    console.print(f"  Попадание в нужный документ (doc-hit): [green]{s['doc_hit_rate']:.0%}[/green]")
+    if s["doc_hit_rate"] is not None:
+        console.print(f"  Попадание в нужный документ (doc-hit): [green]{s['doc_hit_rate']:.0%}[/green]")
     if s["clause_hit_rate"] is not None:
         console.print(f"  Попадание в нужный пункт (clause-hit): {s['clause_hit_rate']:.0%}")
 

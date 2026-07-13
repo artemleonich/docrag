@@ -166,7 +166,16 @@ export default function GenerateView({ mode }: { mode: "docx" | "pptx" }) {
               <span className="badge badge--warn">Ответ не найден в документах</span>
             )}
             <span className="badge badge--model">⚡ {modelLabel(preview.model)}</span>
-            <button className="btn btn--primary btn--sm preview__dl" onClick={() => downloadById(preview.record_id, preview.filename)}>
+            <button
+              className="btn btn--primary btn--sm preview__dl"
+              onClick={async () => {
+                try {
+                  await downloadById(preview.record_id, preview.filename);
+                } catch (e) {
+                  setError(String((e as Error).message || e));
+                }
+              }}
+            >
               <IconDownload className="nav__icon" />
               Скачать {isDocx ? ".docx" : ".pptx"}
             </button>

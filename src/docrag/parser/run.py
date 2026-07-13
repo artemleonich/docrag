@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from docrag.common.logging import get_logger
 from docrag.parser.pdf_parser import parse_pdf

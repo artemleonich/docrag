@@ -37,7 +37,6 @@ def _resolve_device() -> str:
 def _load():
     global _TOKENIZER, _MODEL, _DEVICE
     if _MODEL is None:
-        import torch
         from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
         _DEVICE = _resolve_device()

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import asdict
 from pathlib import Path
 
 from docrag.common.logging import get_logger
@@ -12,7 +11,6 @@ from docrag.scraper.catalog import (
     PdfCandidate,
     extract_pdf_candidates,
     rank_families,
-    select_targeted_subcorpus,
 )
 from docrag.scraper.politeness import PoliteClient
 from docrag.settings import settings

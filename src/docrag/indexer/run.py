@@ -8,7 +8,7 @@ from docrag.common.embedder import embed_texts
 from docrag.common.logging import get_logger
 from docrag.common.models import Chunk, ParsedDocument
 from docrag.indexer.chunker import chunk_document
-from docrag.indexer.qdrant_store import recreate_collection, upsert_chunks
+from docrag.indexer.qdrant_store import collection_info, recreate_collection, upsert_chunks
 from docrag.settings import settings
 
 log = get_logger("indexer.run")
@@ -49,7 +49,9 @@ def build_index(only: list[str] | None = None, recreate: bool | None = None) -> 
     log.info("Всего чанков: %d. Считаю эмбеддинги (bge-m3 dense+sparse)…", len(all_chunks))
     embeddings = embed_texts([c.text for c in all_chunks])
 
-    if recreate:
+    if recreate or not collection_info().get("exists"):
+        # полная переиндексация ИЛИ дозагрузка в пустой Qdrant (коллекции ещё нет —
+        # удалять нечего, но без её создания upsert упал бы с «collection not found»)
         recreate_collection()
     else:
         # дозагрузка: удаляем старые точки переиндексируемых документов,

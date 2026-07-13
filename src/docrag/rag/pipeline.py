@@ -192,7 +192,10 @@ def retrieve(question: str, trace: dict | None = None) -> list[RetrievedChunk]:
     contexts: list[RetrievedChunk] = []
     for r in ranked:
         h = hits[r.index]
-        key = (h.payload.get("doc_id"), h.payload.get("clause"))
+        # Дедуп по (документ, пункт). Для чанков без пункта (clause=None: преамбула,
+        # fallback-нарезка сплошного текста/сканов) НЕЛЬЗЯ схлопывать всё в один ключ —
+        # иначе выживает лишь один фрагмент такого документа. Разводим по chunk_id.
+        key = (h.payload.get("doc_id"), h.payload.get("clause") or h.payload.get("chunk_id"))
         if key in seen:
             continue
         seen.add(key)
