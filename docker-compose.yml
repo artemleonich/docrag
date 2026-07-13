@@ -1,0 +1,13 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: docrag-qdrant
+    restart: unless-stopped
+    ports:
+      - "16333:6333"   # REST/HTTP  (нестандартный хост-порт, чтобы не конфликтовать)
+      - "16334:6334"   # gRPC
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__ENABLE_TLS: "false"
+      QDRANT__LOG_LEVEL: "INFO"

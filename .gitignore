@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Данные: корпус, индексы, кэш, сгенерированные документы — НЕ коммитим
+data/
+
+# Модели / веса
+models/
+*.gguf
+
+# UI
+ui/node_modules/
+ui/dist/
+ui/.vite/
+
+# Собранные брендовые ассеты / приложение
+assets/brand/*.png
+assets/brand/*.icns
+*.app/
+
+# ОС / IDE / секреты
+.DS_Store
+.idea/
+.vscode/
+.env
+*.log
+
+# TS build info
+ui/*.tsbuildinfo

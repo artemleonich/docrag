@@ -1,0 +1,83 @@
+[project]
+name = "docrag"
+version = "0.1.0"
+description = "Локальная офлайн RAG-система: вопрос-ответ по PDF со строгими цитатами + генерация .docx/.pptx"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "docrag contributors" }]
+
+dependencies = [
+    # --- Конфигурация / утилиты ---
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "python-dotenv>=1.0",
+    "rich>=13.7",
+    "typer>=0.12",
+    "tenacity>=8.4",
+    "tqdm>=4.66",
+    "orjson>=3.10",
+    # --- Скрейпер ---
+    "httpx>=0.27",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.2",
+    # --- Парсинг PDF (основной путь — PyMuPDF; Docling — опционально ниже) ---
+    "pymupdf>=1.24",
+    "openpyxl>=3.1",
+    "pillow>=10.3",
+    # --- Эмбеддинги + реранкер (bge-m3 dense+sparse, bge-reranker-v2-m3) ---
+    "FlagEmbedding>=1.3",
+    "torch>=2.3",
+    "transformers>=4.42",
+    # --- Векторная БД ---
+    "qdrant-client>=1.10",
+    # --- LLM инференс (абстрагирован; Ollama сейчас, MLX позже) ---
+    "ollama>=0.3",
+    # --- Генерация документов ---
+    "python-docx>=1.1",
+    "python-pptx>=0.6.23",
+    # --- Бэкенд ---
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+    "sse-starlette>=2.1",
+]
+
+[project.optional-dependencies]
+# Улучшенный парсинг таблиц/сканов (тяжёлый; ставить при необходимости: uv sync --extra docling)
+docling = [
+    "docling>=2.5",
+]
+# OCR для сканов. На macOS основной движок — Vision (ocrmac): лучший русский.
+# RapidOCR — кроссплатформенный запасной вариант.
+ocr = [
+    "ocrmac>=1.0; sys_platform == 'darwin'",
+    "rapidocr-onnxruntime>=1.3",
+    "onnxruntime>=1.18",
+]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.5",
+]
+
+[project.scripts]
+docrag = "docrag.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/docrag"]
+
+[tool.uv]
+# держим сборку torch под CPU/MPS (Apple Silicon), без CUDA
+package = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+markers = ["slow: сквозные тесты, требующие поднятого Qdrant + Ollama"]
+testpaths = ["tests"]
