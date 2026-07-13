@@ -114,7 +114,9 @@ def chunk_document(doc: ParsedDocument) -> list[Chunk]:
                     parent_text=parent_text,
                     parent_id=node.parent_id,
                     section_path=section_path,
-                    clause=node.number,
+                    # раздел верхнего уровня (level 0) — это «Раздел N», а не «п. N»;
+                    # его идентичность несёт section_path, поэтому clause оставляем пустым
+                    clause=node.number if node.level >= 1 else None,
                     page=node.page_start,
                     token_count=int(len(win) / _CHARS_PER_TOKEN),
                     doc_type=doc.meta.doc_type,

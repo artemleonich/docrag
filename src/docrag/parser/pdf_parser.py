@@ -218,7 +218,9 @@ def parse_pdf(
         page_texts=cleaned,
         parser=(
             "docling" if any("docling" in w for w in warnings)
-            else "pymupdf+ocr" if any("OCR" in w for w in warnings)
+            # «OCR применён…» добавляется ТОЛЬКО когда реально распозналась хотя бы одна
+            # страница (не путать с «OCR выключен/недоступен/ошибка OCR»)
+            else "pymupdf+ocr" if any("OCR применён" in w for w in warnings)
             else "pymupdf"
         ),
         warnings=warnings,

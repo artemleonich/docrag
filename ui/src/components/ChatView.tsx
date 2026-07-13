@@ -123,6 +123,7 @@ export default function ChatView() {
 
   function newChat() {
     closeRef.current?.();
+    setBusy(false); // es.close() не вызывает onDone/onError — снимаем busy сами (как в loadSession)
     setMessages([]);
     setCurrentId(newId());
   }

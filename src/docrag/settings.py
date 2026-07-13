@@ -9,7 +9,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Корень репозитория = на два уровня выше этого файла (src/docrag/settings.py -> repo)
@@ -52,7 +52,11 @@ class Settings(BaseSettings):
     # --- Парсинг PDF ---
     # pymupdf (по умолчанию, без тяжёлых зависимостей) | docling (точное извлечение таблиц,
     # требует `uv sync --extra docling`). При сбое docling — автоматический откат на pymupdf.
-    parser_backend: str = "pymupdf"
+    # Читается из DOCRAG_PARSER (короткое имя из доков) или DOCRAG_PARSER_BACKEND.
+    parser_backend: str = Field(
+        default="pymupdf",
+        validation_alias=AliasChoices("DOCRAG_PARSER", "DOCRAG_PARSER_BACKEND"),
+    )
 
     # --- Эмбеддинги / реранкер ---
     embed_model: str = "BAAI/bge-m3"
