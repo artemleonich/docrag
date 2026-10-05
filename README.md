@@ -1,3 +1,7 @@
+<p align="center">
+  <img src=".github/assets/mark.svg" width="40" height="40" alt="DocRAG" />
+</p>
+
 <h1 align="center">DocRAG</h1>
 
 <p align="center"><strong>Ваши PDF → ответы с источниками → документы и презентации.</strong></p>
