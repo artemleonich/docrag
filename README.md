@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/mark.svg" width="40" height="40" alt="DocRAG" />
+  <a href=".github/assets/light/mark.svg#gh-light-mode-only"><img src=".github/assets/light/mark.svg" width="40" height="40" alt="DocRAG" /></a><a href=".github/assets/mark.svg#gh-dark-mode-only"><img src=".github/assets/mark.svg" width="40" height="40" alt="DocRAG" /></a>
 </p>
 
 <h1 align="center">DocRAG</h1>
@@ -7,7 +7,7 @@
 <p align="center"><strong>Ваши PDF → ответы с источниками → документы и презентации.</strong></p>
 
 <p align="center">
-  <img src=".github/assets/stack.svg" height="28" alt="Python · FastAPI · React" />
+  <a href=".github/assets/light/stack.svg#gh-light-mode-only"><img src=".github/assets/light/stack.svg" height="28" alt="Python · FastAPI · React" /></a><a href=".github/assets/stack.svg#gh-dark-mode-only"><img src=".github/assets/stack.svg" height="28" alt="Python · FastAPI · React" /></a>
 </p>
 
 Локальный RAG-ассистент для работы с документами: гибридный поиск, ответы со ссылками на пункт и страницу, генерация Word и PowerPoint.
