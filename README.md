@@ -1,10 +1,10 @@
+<h1 align="center">DocRAG</h1>
+
+<p align="center"><strong>Ваши PDF → ответы с источниками → документы и презентации.</strong></p>
+
 <p align="center">
-  <img src=".github/assets/banner.svg" width="100%" alt="DocRAG" />
+  <img src=".github/assets/stack.svg" height="28" alt="Python · FastAPI · React" />
 </p>
-
-# DocRAG
-
-**Ваши PDF → ответы с источниками → документы и презентации.**
 
 Локальный RAG-ассистент для работы с документами: гибридный поиск, ответы со ссылками на пункт и страницу, генерация Word и PowerPoint.
 
